@@ -54,7 +54,7 @@ GET /tasks
 - Request
 
 ```http
-GET /tasks/create
+POST /tasks/create
 {
     "desc": "..."
 }
