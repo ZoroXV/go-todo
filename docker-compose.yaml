@@ -1,9 +1,28 @@
 version: '2'
 
+networks:
+  backend:
+    driver: bridge
+
 services:
   api:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - '8080:8080'
+    networks:
+      - backend
+
+  postgresql:
+    image: docker.io/bitnami/postgresql:15
+    ports:
+      - '5432:5432'
+    volumes:
+      - './data:/bitnami/postgresql'
+    environment:
+      - 'POSTGRESQL_USERNAME=api'
+      - 'POSTGRESQL_PASSWORD=password'
+      - 'POSTGRESQL_DATABASE=api_database'
+    networks:
+      - backend
